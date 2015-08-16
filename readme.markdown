@@ -1,6 +1,8 @@
 # The Problem
 
-I encountered an odd problem where by the block in a `dispatch_async(dispatch_get_main_queue(), ^{})` will not execute. In the app, a `dispatch_async(dispatch_get_main_queue(), ^{})` is used to display a modal window. Based on user actions, the modal window will makes some network calls on a background thread. When the background thread completed it dispatches the results to the main thread using `dispatch_async(dispatch_get_main_queue(), ^{})`. However, the block was never executing. 
+I encountered an odd problem where the block in a `dispatch_async(dispatch_get_main_queue(), ^{})` does not execute. 
+
+In the app I'm working on, a `dispatch_async(dispatch_get_main_queue(), ^{})` is used to display a modal window. Based on user actions, the modal window will makes some network calls on a background thread. When the background thread completed it dispatches the results to the main thread using `dispatch_async(dispatch_get_main_queue(), ^{})`. However, the block never executed. 
 
 To work around this problem, I had to use `-[NSObject performSelectorOnMainThread:withObject:waitUntilDone:]` instead. 
 
