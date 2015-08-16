@@ -8,7 +8,7 @@ To work around this problem, I had to use `-[NSObject performSelectorOnMainThrea
 
 Here is a [blog post][1] I wrote on my theory on why this problem is happening.
 
-Update: It was pointed out to me by [Mike Ash][mikeash] that NSRunLoop is reentrant but GCD serial queues are not. The main queue is a serial queue. In the scenario where I encountered the problem, the main queue is already executing the block and it won't execute the new block until the first one is done. As Mike said, "This is a subtle way in which dispatch on the main queue isn't the same as `performSelectorOnMainThread`." Thanks, Mike!
+Update: It was pointed out to me by [Mike Ash][mikeash] that NSRunLoop is reentrant but GCD serial queues are not. The main queue is a serial queue. In the scenario where I encountered the problem, the main queue is already executing the block and it won't execute the new block until the first one is done. This is why the other block is never executed. As Mike said, "This is a subtle way in which dispatch on the main queue isn't the same as `performSelectorOnMainThread`." Thanks, Mike!
 
 # The Problem In Action
 
